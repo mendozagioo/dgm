@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "DEBUG=app node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
