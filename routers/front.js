@@ -16,23 +16,7 @@ router.all("/", function(req, res, next){
 
     if(organization){
       if(organizations.length == 0){
-        console.log("Error: array de organizaciones vacio, resolviendo mediante el API.");
-
-        request.get("https://api.datos.gob.mx/v1/ckan-organizations?name=" + organization, function(error, response, body){
-          if(error){
-            console.log("Error en la respuesta del servidor.", error);
-          }
-          body = JSON.parse(body);
-
-          if(body.results.length == 0){
-            console.log("No se encontro la organización.", organization);
-          }else{
-            res.redirect("busca/organization/" + organization);
-            return;
-          }
-
-        });
-
+        console.log("Error: array de organizaciones vacio.");
       } else (organizations.indexOf(organization) > -1) {
         res.redirect("busca/organization/" + organization);
         return;
