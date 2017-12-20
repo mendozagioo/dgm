@@ -17,10 +17,11 @@ router.all("/", function(req, res, next){
     if(organization){
       if(organizations.length == 0){
         console.log("Error: array de organizaciones vacio.");
-      } else (organizations.indexOf(organization) > -1) {
+      } else if (organizations.indexOf(organization) > -1) {
         res.redirect("busca/organization/" + organization);
         return;
       }
+
       console.log("Organización no encontrada.", organization, originUrl);
     }else{
       console.log("URL no valida para redirección.", originUrl);
