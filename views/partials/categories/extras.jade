@@ -6,6 +6,6 @@
         .col-md-4( ng-repeat="category in categories" )
             .sector-item
                 img( ng-src="{{ category.grid_photo.path }}" alt="{{ category.name }}" )
-                a.overlay( ui-sref="category.details({ category : category.slug })" alt="category.name" )
+                a.overlay( href="busca/dataset?theme={{ tag.name }}" alt="{{ tag.name }}" )
                     img( src="img/ic-{{ category.slug }}.png" alt="{{ category.name }}" )
                     span {{ category.name }}
