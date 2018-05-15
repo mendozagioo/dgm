@@ -29,4 +29,5 @@
     a( ui-sref="front.section({ section : post.section.slug, category : post.category.slug })" alt="{{ post.category.name }}" ) {{ post.category.name }}
   p.author {{ post.author }}
     a.read-more( href="{{ post.external_link }}" alt="{{ post.name }}" target="_blank" ng-if="post.external_link" ) Leer más
-    a.read-more( ui-sref="front.post({ section : post.section.slug, category : post.category.slug, tag : post.tag.slug, post : post.slug })" alt="{{ post.name }}" ng-if="!post.external_link" ) Leer más
+    a.read-more( ui-sref="front.post({ section : post.section.slug, category : post.category.slug, tag : post.tag.slug, post : post.slug })" alt="{{ post.name }}" ng-if="!post.external_link && !post.section.slug" ) Leer más
+    a.read-more( href="/blog/{{ post.slug }}?category={{ post.category.slug }}&tag={{ post.tag.slug }}" alt="{{ post.name }}" target="_blank" ng-if="!post.external_link && post.section.slug" ) Leer más
