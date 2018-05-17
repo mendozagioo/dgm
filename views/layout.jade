@@ -22,9 +22,7 @@ html
         link(rel='stylesheet', href='bower_components/medium-editor/dist/css/themes/default.css')
         // endbower
 
-        //if IE
-          style.
-            dgm-footer{bottom:inherit;}
+        | <!--[if IE ]> <style>dgm-footer{bottom:inherit;}</style> <![endif]-->
 
         if settings.env == 'development'
             script(async  src="http://localhost:35729/livereload.js?snipver=1" )
