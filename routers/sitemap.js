@@ -1,27 +1,47 @@
 var sm = require('sitemap'),
-    express = require('express')
+    config = require('../config/app'),
+    express = require('express'),
+    Post = require('../models/post')
+    
 
-var router = express()
-, sitemap = sm.createSitemap ({
-    hostname: 'https://datos.gob.mx',
-    cacheTime: 600000,        // 600 sec - cache purge period
-    urls: [
-        { url: '/page-1/',  changefreq: 'daily', priority: 0.3 },
-        { url: '/page-2/',  changefreq: 'monthly',  priority: 0.7 },
-        { url: '/page-3/'},    // changefreq: 'weekly',  priority: 0.5
-        { url: '/page-4/',   img: "http://urlTest.com" }
-    ]
-});
+var router = express();
 
 router.get('/', function(req, res){
-    sitemap.toXML( function(err, xml){
-        if ( err ) {
-            return res.status(500).end();
-        }
-        res.header('Content-Type', 'application/xml');
-        res.send(xml)
+    var urls = [
+        { url: '/',  changefreq: 'never', priority: 0.7 },
+        { url: '/blog/',  changefreq: 'never', priority: 0.7 },
+        { url: '/herramientas/',  changefreq: 'never', priority: 0.7 },
+        { url: '/desarrolladores/',  changefreq: 'never', priority: 0.7 }
+    ];
+
+    Post.find({status: 'PUBLISHED'})
+    .populate('section')
+    .sort('-section')
+    .select('slug section')
+    .then((posts) => {
+        posts.forEach( post => {
+            if ( post.section.slug == 'blog' || post.section.slug == 'herramientas' || post.section.slug == 'api-cdn') { 
+                urls.push({ url: '/' + post.section.slug + '/' + post.slug,  changefreq: 'never', priority: 0.5 });
+            }
+        });
+
+        sitemap = sm.createSitemap ({
+            hostname: config.host_name,
+            cacheTime: 600000,
+            urls: urls
+        });
+
+        sitemap.toXML( function(err, xml) {
+            if ( err ) {
+                return res.status(500).end();
+            }
+            res.header('Content-Type', 'application/xml');
+            res.send(xml);
+        });
+
     });
-})
+});
+
 
 
 module.exports = router;
