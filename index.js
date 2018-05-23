@@ -16,9 +16,9 @@ start.launch(app);
 // Set the CMS server routes
 var cmsApi = require('./routers/cmsApi'),
   front = require('./routers/front'),
-  sitemap = require('./routers/sitemap');
+  dgm = require('./routers/dgm');
 
-app.use('/sitemap.xml', sitemap)
+app.use('/dgm.xml', dgm)
 app.use('/cms-api', cmsApi);
 app.use('/', front);
 
