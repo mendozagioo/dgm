@@ -44,6 +44,7 @@
     "requirejs": "2.1.22",
     "rimraf": "2.5.2",
     "semaphore": "^1.1.0",
+    "sitemap": "^1.13.0",
     "wiredep": "4.0.0"
   }
 }
