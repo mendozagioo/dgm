@@ -64,7 +64,7 @@ define(function() {
           }
         });
       } else {
-        alert('Datos Imcompletos');
+        alert('Datos Incompletos');
       }
     };
     $scope.datasetAdd = function() {
