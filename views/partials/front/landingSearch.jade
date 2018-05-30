@@ -19,6 +19,6 @@ span.copyright-banner
 .categories.hidden-sm.hidden-xs
     ul.categories-list
         li( ng-repeat="tag in tags" )
-            a(href="busca/dataset?theme={{ tag.name }}" alt="{{ tag.name }}" target="_blank")
+            a(alt="{{ tag.name }}" ng-click="ignoreAccents(tag.name)")
                 img.img-category.loading-content( src="img/ic-{{ tag.slug }}.svg" alt="{{ tag.name }}" chargeimage )
                 span {{ tag.name }}
