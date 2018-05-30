@@ -68,20 +68,37 @@ define(function() {
       $scope.update();
     };
     $scope.update = function() {
-      $scope.post.author = $scope.post.author.replace(/<br>/g, '');
-      $scope.post.content = $scope.post.content.replace(/<br>/g, '');
-      $scope.post.name = $scope.post.name.replace(/<br>/g, '');
-      $scope.post.slug = slug($scope.post.name, {
-        lower: true
-      });
+ 
+      var d = document.createElement('div');
+          d.innerHTML = $scope.post.content;   
+          if ($scope.postForm.$valid && $scope.post.author && $scope.post.name && d.innerText.trim() !== "") {
 
-      if (!uploading) {
-        delete $scope.post.cover_photo;
-        delete $scope.post.grid_photo;
-        delete $scope.post.slider_photos;
-      }
+              $scope.post.author = $scope.post.author.replace(/<br>/g, '');
+              $scope.post.content = $scope.post.content.replace(/<br>/g, '');
+              $scope.post.name = $scope.post.name.replace(/<br>/g, '');
+              $scope.post.slug = slug($scope.post.name, {
+                lower: true
+              });
 
-      Posts.update($stateParams.id, $scope.post);
+              if (!uploading) {
+                delete $scope.post.cover_photo;
+                delete $scope.post.grid_photo;
+                delete $scope.post.slider_photos;
+              }
+
+              var result =  Posts.update($stateParams.id, $scope.post);
+              result.$promise.then(function (data) {
+                alert('Registro actualizado.')
+              },
+              function(err) {
+                if(err.status === 404) {
+                  alert('El título del contenido ya existe.');
+                }
+              })
+      } else {
+        alert('Datos Incompletos');
+      }  
+
     };
     $scope.open = function() {
       $scope.dpOpen = true;
