@@ -15,7 +15,7 @@ define(function() {
 
       _total: 0,
 
-      _resource: $resource('https://datos.gob.mx/busca/api/3/action/:action', null, {
+      _resource: $resource('https://datos.gob.mx/ckan-admin/api/3/action/:action', null, {
         dataset: {
           method: 'GET',
           isArray: false,
