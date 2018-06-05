@@ -127,7 +127,6 @@ define(function() {
       }
 
       uploading = true;
-      $scope.update();
     });
     $scope.$on(Posts.getEvent('RETRIEVED'), function() {
       $scope.post.creation_date = new Date($scope.post.creation_date);
@@ -147,14 +146,11 @@ define(function() {
       $scope.$state.go('posts.list');
     });
     $scope.$on(Posts.getEvent('UPDATED'), function(e, data) {
-      if (!uploading) {
-        $scope.$state.go('posts.list');
-      } else {
         $scope.post.cover_photo = data.cover_photo;
         $scope.post.grid_photo = data.grid_photo;
         $scope.post.slider_photos = data.slider_photos;
         uploading = false;
-      }
+        $scope.$state.go('posts.list');
     });
     $scope.$on('POST_REMOVE', function() {
       Posts.remove($stateParams.id);
