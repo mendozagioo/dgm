@@ -13,6 +13,9 @@ process.env.CDN_URL = process.env.CDN_URL || 'http://cdn.datos.gob.mx/bower_comp
 
 start.launch(app);
 
+// Remove Header X-powered-By
+app.disable('x-powered-by');
+
 // Set the CMS server routes
 var cmsApi = require('./routers/cmsApi'),
   front = require('./routers/front'),
