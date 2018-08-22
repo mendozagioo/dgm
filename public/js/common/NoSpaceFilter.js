@@ -2,8 +2,8 @@
 
 define( function () {
     return function () {
-        return function ( value ) {
-            return !value ? '' : value.replace( / /g, '' );
+        return function ( _value ) {
+            return !_value ? '' : _value.replace( / /g, '' );
         };
     };
 });

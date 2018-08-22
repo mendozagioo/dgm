@@ -106,7 +106,7 @@ define(function() {
 
     $scope.$on(events.FILEUPLOADER_DONE, function(e, data) {
       if (Object.keys(data)[0] == 'slider_photos') {
-        $scope.post.slider_photos[parseInt(data.index)] = data[Object.keys(data)[0]];
+        $scope.post.slider_photos[parseInt(data.index, 10)] = data[Object.keys(data)[0]];
       } else {
         $scope.post[Object.keys(data)[0]] = data[Object.keys(data)[0]];
       }

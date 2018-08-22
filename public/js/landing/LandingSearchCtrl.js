@@ -3,8 +3,8 @@
 define( function () {
     return function ( $scope, $http, Categories ) {
 
-        $scope.numberOrganizations = undefined;
-        $scope.numberData = undefined;
+        $scope.numberOrganizations = 0;
+        $scope.numberData = 0;
 
         var query       = '';
         $scope.tags     = Categories.query({
@@ -29,12 +29,12 @@ define( function () {
         };
 
         $scope.ignoreAccents = function(item) {          
-            var text = $scope.removeAccents(item.toString()); 
-            window.location.href = "https://datos.gob.mx/busca/dataset?theme="+text;
+            var _text = $scope.removeAccents(item.toString()); 
+            window.location.href = "https://datos.gob.mx/busca/dataset?theme="+_text;
         };
 
-        $scope.removeAccents = function(value) {
-          return value.toString()
+        $scope.removeAccents = function(_value) {
+          return _value.toString()
               .replace(/á/g, '%C3%A1')    
               .replace(/é/g, '%C3%A9')
               .replace(/í/g, '%C3%AD')

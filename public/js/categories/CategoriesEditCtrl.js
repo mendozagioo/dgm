@@ -51,8 +51,8 @@ define(function() {
     $scope.$on('UPDATE_CATEGORY', function() {
       $scope.create();
     });
-    $scope.$watch('category.name', function(name) {
-      if (name) {
+    $scope.$watch('category.name', function(_name) {
+      if (_name) {
         $scope.category.slug = slug($scope.category.name, {
           lower: true
         });

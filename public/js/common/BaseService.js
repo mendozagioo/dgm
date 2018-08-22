@@ -51,11 +51,11 @@ define(function() {
           });
       },
 
-      get: function(id, expand) {
+      get: function(_id, expand) {
         var that = this;
 
         return this._resource.get({
-            id: id,
+            id: _id,
             expanded: expand
           },
           function(data) {
@@ -69,8 +69,8 @@ define(function() {
         );
       },
 
-      getEvent: function(type) {
-        switch (type) {
+      getEvent: function(_type) {
+        switch (_type) {
           case 'CREATED':
             return events[this._model.toUpperCase() + '_CREATED'];
             break;
@@ -113,11 +113,11 @@ define(function() {
         );
       },
 
-      remove: function(id) {
+      remove: function(_id) {
         var that = this;
 
         return this._resource.delete({
-            id: id
+            id: _id
           },
           function(data) {
             while (!data.$resolved);
@@ -131,11 +131,11 @@ define(function() {
         );
       },
 
-      update: function(id, data) {
+      update: function(_id, data) {
         var that = this;
 
         return this._resource.update({
-            id: id,
+            id: _id,
           }, data,
           function(data) {
             while (!data.$resolved);

@@ -2,7 +2,7 @@ var express = require('express'),
   debug = require('debug')('app'),
   app = express(),
   livereload = require('livereload'),
-  error = require('./lib/error'),
+  lib_error = require('./lib/error'),
   start = require('./lib/start');
 
 // Set the PORT and ENV variables and start the server
@@ -25,8 +25,8 @@ app.use('/dgm.xml', dgm)
 app.use('/cms-api', cmsApi);
 app.use('/', front);
 
-app.use(error.notFound);
-app.use(error.handler);
+app.use(lib_error.notFound);
+app.use(lib_error.handler);
 
 if (app.get('env') == 'development') {
   var liveServer = livereload.createServer();

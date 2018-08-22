@@ -31,7 +31,7 @@ define(function() {
     $scope.$on(Categories.getEvent('CREATED'), function() {
       $scope.$state.go('categories.list');
     });
-    $scope.$watch('category.name', function(name) {
+    $scope.$watch('category.name', function(_name) {
       $scope.category.slug = slug($scope.category.name, {
         lower: true
       });

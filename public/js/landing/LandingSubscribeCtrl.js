@@ -5,13 +5,13 @@ define( function () {
         $scope.subscribe    = function ( e ) {
             e.preventDefault();
             if ( $scope.email ) {
-                var form        = $( e.currentTarget ),
-                    emailEl     = $( 'input[name="EMAIL"]', form );
+                var _form        = $( e.currentTarget ),
+                    emailEl     = $( 'input[name="EMAIL"]', _form );
 
                 $.ajax({
-                    type        : form.attr( 'method' ),
-                    url         : form.attr( 'action' ),
-                    data        : form.serialize(),
+                    type        : _form.attr( 'method' ),
+                    url         : _form.attr( 'action' ),
+                    data        : _form.serialize(),
                     cache       : false,
                     dataType    : 'json',
                     contentType : "application/json; charset=utf-8",

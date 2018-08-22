@@ -5,8 +5,8 @@ var request = require('request'),
 
 var REDIRECT_ENGINE_BASE = process.env.REDIRECT_ENGINE_BASE || "https://datos.gob.mx/busca/organization"
 
-function printLog(referer, match, description){
-  console.log(JSON.stringify({"date": new Date().toISOString(), "referer": referer, "match": match, "description": description}));
+function printLog(referer, _match, _description){
+  console.log(JSON.stringify({"date": new Date().toISOString(), "referer": referer, "match": _match, "description": _description}));
 }
 
 /*
@@ -15,17 +15,17 @@ function printLog(referer, match, description){
 router.all("/", function(req, res, next){
   var originUrl = req.get("referer") || "";
 
-  var match = originUrl.match(/.*www\.(\w*)?\.?(?:gob\.mx\/)(\w*)?/i) || [];
+  var _match = originUrl.match(/.*www\.(\w*)?\.?(?:gob\.mx\/)(\w*)?/i) || [];
 
-  if( !match[1] && !match[2] ){
+  if( !_match[1] && !_match[2] ){
     printLog(originUrl, "", "organization not identified");
     next();
     return;
   }
 
-  var refererOrganization = match[1] ? match[1]:match[2];
-  request({method:"HEAD", uri: REDIRECT_ENGINE_BASE + "/" + refererOrganization}, function(error, response, body){
-    if(!error && response.statusCode != 404){
+  var refererOrganization = _match[1] ? _match[1]:_match[2];
+  request({method:"HEAD", uri: REDIRECT_ENGINE_BASE + "/" + refererOrganization}, function(_error, response, _body){
+    if(!_error && response.statusCode != 404){
       printLog(originUrl, refererOrganization, "organization found")
 
       res.redirect(REDIRECT_ENGINE_BASE + "/" + refererOrganization);

@@ -2,8 +2,8 @@
 
 define( function () {
     return function ( $scope, $sce, Categories, Posts ) {
-        $scope.trustSrc = function(src) {
-          var url = src.split("v=");
+        $scope.trustSrc = function(_src) {
+          var url = _src.split("v=");
           var new_url = "https://www.youtube.com/embed/" + url[1];
           return $sce.trustAsResourceUrl(new_url);
         }

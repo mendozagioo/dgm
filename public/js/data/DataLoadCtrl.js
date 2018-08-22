@@ -9,8 +9,8 @@ define(function() {
         'catalogo-de-centros-de-trabajo',
         'catalogo-de-nucleos-agrarios'
       ],
-      query = function(type) {
-        switch (type) {
+      query = function(_type) {
+        switch (_type) {
           case 0:
             $scope.datasets = Array();
             Apis.query({
@@ -73,18 +73,18 @@ define(function() {
         }
       };
 
-    $scope.load = function(e, type) {
+    $scope.load = function(e, _type) {
       var el = $(e.currentTarget);
       if (!el.hasClass('active')) {
         $('.active', '.section-data .data-list').removeClass('active');
         el.addClass('active');
 
-        query(type);
+        query(_type);
       }
     };
-    $scope.select = function(dataset, link) {
-      if (link) {
-        window.open(link, '_blank');
+    $scope.select = function(dataset, _link) {
+      if (_link) {
+        window.open(_link, '_blank');
       } else {
         window.open('busca/dataset/' + dataset, '_blank');
       }

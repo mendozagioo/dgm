@@ -207,38 +207,38 @@ var async = require('async'),
 
         cb(err);
       } else {
-        for (var i = 0; i < records.length; i++) {
-          ids[i].created = records[i].id;
+        for (var j = 0; j < records.length; j++) {
+          ids[j].created = records[j].id;
         }
 
-        var i = 0;
+        var k = 0;
         async.each(records, function(category, done) {
           if (category.type == 'TAG') {
             var dir = path.join(config.uploads_path, category.id);
             mkdirp.sync(dir);
 
-            if (photos[i].cover_photo != undefined) {
-              fs.writeFileSync(path.join(dir, photos[i].cover_photo.name), zip.files['data/images/' + ids[i].original + '/' + photos[i].cover_photo.name]._data, 'binary');
+            if (photos[k].cover_photo != undefined) {
+              fs.writeFileSync(path.join(dir, photos[k].cover_photo.name), zip.files['data/images/' + ids[k].original + '/' + photos[k].cover_photo.name]._data, 'binary');
               category.cover_photo = {
-                path: path.join(dir, photos[i].cover_photo.name),
-                name: photos[i].cover_photo.name
+                path: path.join(dir, photos[k].cover_photo.name),
+                name: photos[k].cover_photo.name
               };
             }
 
-            if (photos[i].grid_photo != undefined) {
-              fs.writeFileSync(path.join(dir, photos[i].grid_photo.name), zip.files['data/images/' + ids[i].original + '/' + photos[i].grid_photo.name]._data, 'binary');
+            if (photos[k].grid_photo != undefined) {
+              fs.writeFileSync(path.join(dir, photos[k].grid_photo.name), zip.files['data/images/' + ids[k].original + '/' + photos[k].grid_photo.name]._data, 'binary');
               category.grid_photo = {
-                path: path.join(dir, photos[i].grid_photo.name),
-                name: photos[i].grid_photo.name
+                path: path.join(dir, photos[k].grid_photo.name),
+                name: photos[k].grid_photo.name
               };
             }
 
-            i++;
+            k++;
             category.save(function() {
               done(null);
             });
           } else {
-            i++;
+            k++;
             done(null);
           }
         }, function(err) {
@@ -299,19 +299,19 @@ var async = require('async'),
       }
 
       if (categoriesIds) {
-        for (var j = 0; j < categoriesIds.length; j++) {
-          if (!category && posts[i].category == categoriesIds[j].original) {
-            posts[i].category = categoriesIds[j].created;
+        for (var k = 0; k < categoriesIds.length; k++) {
+          if (!category && posts[i].category == categoriesIds[k].original) {
+            posts[i].category = categoriesIds[k].created;
             category = true;
           }
 
-          if (!section && posts[i].section == categoriesIds[j].original) {
-            posts[i].section = categoriesIds[j].created;
+          if (!section && posts[i].section == categoriesIds[k].original) {
+            posts[i].section = categoriesIds[k].created;
             section = true;
           }
 
-          if (!tag && posts[i].tag == categoriesIds[j].original) {
-            posts[i].tag = categoriesIds[j].created;
+          if (!tag && posts[i].tag == categoriesIds[k].original) {
+            posts[i].tag = categoriesIds[k].created;
             tag = true;
           }
 

@@ -7,7 +7,7 @@ var express = require('express'),
   Utils = require('../lib/utils'),
   Session = require('../lib/session'),
   router = express.Router();
-_getRefs = function() {
+var _getRefs = function() {
   return [{
     field: 'name',
     select: 'name setting'
@@ -20,10 +20,10 @@ router.get('', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-  cursor = Setting.findOne({
+  var cursor = Setting.findOne({
       name: req.params.id
-    }),
-    callback = function(err, setting) {
+    });
+  var callback = function(err, setting) {
       if (err || !setting) {
         err = new Error('Invalid setting name');
         err.status = 404;
@@ -37,7 +37,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.post('/', Session.validate, function(req, res, next) {
-  moveImg = function(field, setting) {
+  var moveImg = function(field, setting) {
     Utils.move(req.body[field], path.join(config.uploads_path, setting.id), function(e, file) {
       setting[field] = file;
       setting.save(updated);
