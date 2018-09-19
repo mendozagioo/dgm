@@ -2,7 +2,7 @@ var express = require('express'),
   debug = require('debug')('app'),
   app = express(),
   livereload = require('livereload'),
-  error = require('./lib/error'),
+  lib_error = require('./lib/error'),
   start = require('./lib/start');
 
 // Set the PORT and ENV variables and start the server
@@ -13,6 +13,9 @@ process.env.CDN_URL = process.env.CDN_URL || 'http://cdn.datos.gob.mx/bower_comp
 
 start.launch(app);
 
+// Remove Header X-powered-By
+app.disable('x-powered-by');
+
 // Set the CMS server routes
 var cmsApi = require('./routers/cmsApi'),
   front = require('./routers/front'),
@@ -22,8 +25,8 @@ app.use('/dgm.xml', dgm)
 app.use('/cms-api', cmsApi);
 app.use('/', front);
 
-app.use(error.notFound);
-app.use(error.handler);
+app.use(lib_error.notFound);
+app.use(lib_error.handler);
 
 if (app.get('env') == 'development') {
   var liveServer = livereload.createServer();

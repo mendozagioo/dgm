@@ -48,8 +48,8 @@ UserSchema.pre('save', function(next) {
   if (!user.isModified('pass')) {
     next();
   } else {
-    bcrypt.hash(user.pass, 10, function(err, hash) {
-      user.pass = hash;
+    bcrypt.hash(user.pass, 10, function(err, _hash) {
+      user.pass = _hash;
       next();
     });
   }

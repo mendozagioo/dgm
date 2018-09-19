@@ -3,8 +3,8 @@
 define( function () {
     return function ( $scope, $http, Categories ) {
 
-        $scope.numberOrganizations = undefined;
-        $scope.numberData = undefined;
+        $scope.numberOrganizations = 0;
+        $scope.numberData = 0;
 
         var query       = '';
         $scope.tags     = Categories.query({
@@ -28,6 +28,20 @@ define( function () {
             window.open( 'busca/dataset?' + query, '_self' );
         };
 
+        $scope.ignoreAccents = function(item) {          
+            var _text = $scope.removeAccents(item.toString()); 
+            window.location.href = "https://datos.gob.mx/busca/dataset?theme="+_text;
+        };
+
+        $scope.removeAccents = function(_value) {
+          return _value.toString()
+              .replace(/á/g, '%C3%A1')    
+              .replace(/é/g, '%C3%A9')
+              .replace(/í/g, '%C3%AD')
+              .replace(/ó/g, '%C3%B3')
+              .replace(/ú/g, '%C3%BA');
+        };
+
         $http.get('https://api.datos.gob.mx/v2/resources?pageSize=1')
         .then(function(response){
           if( response.data.pagination != undefined )
@@ -40,4 +54,7 @@ define( function () {
             $scope.numberOrganizations = response.data.pagination.total;
         });
     };
+
+     
 });
+

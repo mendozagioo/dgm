@@ -15,7 +15,7 @@ define(function() {
 
       _total: 0,
 
-      _resource: $resource('https://datos.gob.mx/busca/api/3/action/:action', null, {
+      _resource: $resource('https://datos.gob.mx/ckan-admin/api/3/action/:action', null, {
         dataset: {
           method: 'GET',
           isArray: false,
@@ -53,9 +53,9 @@ define(function() {
         }, this._timeout);
       },
 
-      getEvent: function(event) {
+      getEvent: function(_event) {
         /* istanbul ignore next */
-        switch (event) {
+        switch (_event) {
           case 'ERROR':
             return events.DATASETS_ERROR;
             break;
@@ -78,11 +78,11 @@ define(function() {
         return this._total;
       },
 
-      dataset: function(id) {
+      dataset: function(_id) {
         $rootScope.$broadcast(events.DATASETS_RETRIEVING);
         return this._resource.dataset({
             action: 'package_show',
-            id: id
+            id: _id
           },
           function(data) {
             while (!data.$resolved) {

@@ -1,6 +1,6 @@
 .inner
-  a( ui-sref="front.post({ section : post.section.slug, category : post.category.slug, tag : post.tag.slug, post : post.slug })" alt="{{ post.name }}" ng-if="!post.featured" )
-    img( ng-src="{{ post.grid_photo.path }}")
+  a.size_class( ui-sref="front.post({ section : post.section.slug, category : post.category.slug, tag : post.tag.slug, post : post.slug })" alt="{{ post.name }}" ng-if="!post.featured" )
+   img( ng-src="{{ post.grid_photo.path }}" alt='')
   a.hidden-xs.hidden-sm( ui-sref="front.post({ section : post.section.slug, category : post.category.slug, tag : post.tag.slug, post : post.slug })" alt="{{ post.name }}" ng-if="post.featured" )
     img( ng-src="{{ post.cover_photo.path }}")
   a.hidden-md.hidden-lg( ui-sref="front.post({ section : post.section.slug, category : post.category.slug, tag : post.tag.slug, post : post.slug })" alt="{{ post.name }}" ng-if="post.featured" )

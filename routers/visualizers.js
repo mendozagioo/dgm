@@ -40,7 +40,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.post('/', Session.validate, function(req, res, next) {
-  moveImg = function(field, visualizer) {
+  var moveImg = function(field, visualizer) {
     Utils.move(req.body[field], path.join(config.uploads_path, viusalizer.id), function(e, file) {
       visualizer[field] = file;
       visualizer.save(updated);

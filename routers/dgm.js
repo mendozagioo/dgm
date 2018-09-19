@@ -30,7 +30,7 @@ router.get('/', function(req, res){
             }
         });
 
-        sitemap = sm.createSitemap ({
+        var sitemap = sm.createSitemap ({
             hostname: config.host_name,
             cacheTime: 600000,
             urls: urls

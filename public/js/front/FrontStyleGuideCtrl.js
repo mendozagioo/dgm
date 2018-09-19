@@ -14,13 +14,13 @@ define(function () {
 
     // Crea la animación del scroll para el submenú
     $('.right-side-menu a').on('click', function(e) {
-      var selected = $(this).attr('href');
+      var _selected = $(this).attr('href');
   
-      if (selected === '#objetivo') {
+      if (_selected === '#objetivo') {
         $('html, body').animate({scrollTop:0}, 700);
       } else {
         $('html, body').animate({
-          scrollTop: $(selected).offset().top - 125
+          scrollTop: $(_selected).offset().top - 125
         }, 500);
       }
     });

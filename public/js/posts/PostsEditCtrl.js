@@ -68,20 +68,37 @@ define(function() {
       $scope.update();
     };
     $scope.update = function() {
-      $scope.post.author = $scope.post.author.replace(/<br>/g, '');
-      $scope.post.content = $scope.post.content.replace(/<br>/g, '');
-      $scope.post.name = $scope.post.name.replace(/<br>/g, '');
-      $scope.post.slug = slug($scope.post.name, {
-        lower: true
-      });
+ 
+      var d = document.createElement('div');
+          d.innerHTML = $scope.post.content;   
+          if ($scope.postForm.$valid && $scope.post.author && $scope.post.name && d.innerText.trim() !== "") {
 
-      if (!uploading) {
-        delete $scope.post.cover_photo;
-        delete $scope.post.grid_photo;
-        delete $scope.post.slider_photos;
-      }
+              $scope.post.author = $scope.post.author.replace(/<br>/g, '');
+              $scope.post.content = $scope.post.content.replace(/<br>/g, '');
+              $scope.post.name = $scope.post.name.replace(/<br>/g, '');
+              $scope.post.slug = slug($scope.post.name, {
+                lower: true
+              });
 
-      Posts.update($stateParams.id, $scope.post);
+              if (!uploading) {
+                delete $scope.post.cover_photo;
+                delete $scope.post.grid_photo;
+                delete $scope.post.slider_photos;
+              }
+
+              var result =  Posts.update($stateParams.id, $scope.post);
+              result.$promise.then(function (data) {
+                alert('Registro actualizado.')
+              },
+              function(err) {
+                if(err.status === 404) {
+                  alert('El título del contenido ya existe.');
+                }
+              })
+      } else {
+        alert('Datos Incompletos');
+      }  
+
     };
     $scope.open = function() {
       $scope.dpOpen = true;
@@ -89,7 +106,7 @@ define(function() {
 
     $scope.$on(events.FILEUPLOADER_DONE, function(e, data) {
       if (Object.keys(data)[0] == 'slider_photos') {
-        $scope.post.slider_photos[parseInt(data.index)] = data[Object.keys(data)[0]];
+        $scope.post.slider_photos[parseInt(data.index, 10)] = data[Object.keys(data)[0]];
       } else {
         $scope.post[Object.keys(data)[0]] = data[Object.keys(data)[0]];
       }
@@ -110,7 +127,6 @@ define(function() {
       }
 
       uploading = true;
-      $scope.update();
     });
     $scope.$on(Posts.getEvent('RETRIEVED'), function() {
       $scope.post.creation_date = new Date($scope.post.creation_date);
@@ -130,14 +146,11 @@ define(function() {
       $scope.$state.go('posts.list');
     });
     $scope.$on(Posts.getEvent('UPDATED'), function(e, data) {
-      if (!uploading) {
-        $scope.$state.go('posts.list');
-      } else {
         $scope.post.cover_photo = data.cover_photo;
         $scope.post.grid_photo = data.grid_photo;
         $scope.post.slider_photos = data.slider_photos;
         uploading = false;
-      }
+        $scope.$state.go('posts.list');
     });
     $scope.$on('POST_REMOVE', function() {
       Posts.remove($stateParams.id);

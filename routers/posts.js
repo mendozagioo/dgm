@@ -246,7 +246,13 @@ router.put('/:id', Session.validate, function(req, res, next) {
       }
     },
     updated = function(err, post) {
-      res.json(post);
+      if (err || !post) {
+        err = new Error('Name of the Post already exists in the database');
+        err.status = 404;
+        next(err);
+      } else {
+        res.json(post);
+      }
     },
     changeFeatured = function(section){
       Post.find({
