@@ -90,6 +90,6 @@ define(function() {
       }
     };
 
-    query(0);
+    query(1);
   };
 });
